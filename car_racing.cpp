@@ -465,7 +465,8 @@ void display() {
         drawText("Use 'W' to accelerate", 170, 290);
         drawText("Use 'A' to move left", 170, 250);
         drawText("Use 'D' to move right", 170, 210);
-        drawText("Press 'Enter' to play", 170, 150);
+        drawText("Use 'S' to move down", 170, 170);
+        drawText("Press 'Enter' to play", 170, 120);
         glutSwapBuffers();
     } else {
         drawRoad();
