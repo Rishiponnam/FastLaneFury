@@ -307,15 +307,17 @@ void Specialkey(int key, int x, int y) {
     }
 
     if (key == GLUT_KEY_UP) {
-        if (vehicleY < 450) {
-            vehicleY += 5;
-        }
+        vehicleY += 5;
+            if (vehicleY > 450) {
+                vehicleY = 450;
+            }
     }
 
     if (key == GLUT_KEY_DOWN) {
-        if (vehicleY > 0) {
-            vehicleY -= 5;
-        }
+        vehicleY -= 5;
+            if (vehicleY < 0) {
+                vehicleY = 0;
+            }
     }
 
     if (key == GLUT_KEY_LEFT) {
@@ -343,15 +345,15 @@ void timer(int);
 void Normalkey(unsigned char key, int x, int y) {
     keyStates[key] = true;
 
-    if (!gameStarted && (key == 'x' || key == 13)) {  // 13 is the ASCII code for 'Enter' key
+    if (!gameStarted && (key == 13)) {  // 13 is the ASCII code for 'Enter' key
         gameStarted = true;  // Set gameStarted to true when the user presses 'x' or 'Enter'
         screen = 2;
         gameRunning = true;
         gameOver = false;
     }
 
-    if (key == 27 || key == ' ') { // 27 is the ASCII code for the 'ESC' key
-        if (gameRunning && gameRunning && !pauseScreen && !gameOver) {
+    if (key == 27 || (gameStarted && key == ' ')) { // 27 is the ASCII code for the 'ESC' key
+        if (gameRunning && !pauseScreen && !gameOver) {
             pauseScreen = true;
             updateGame = false;
         } else if (gameRunning && !gameOver) {
@@ -363,7 +365,7 @@ void Normalkey(unsigned char key, int x, int y) {
 
     if (screen == 0) {
         screen = 1;
-    } else if (key == 'x' && screen == 1) {
+    } else if (key == 13 && screen == 1) {
         screen = 2;
         gameRunning = true;
         gameOver = false;
@@ -455,7 +457,7 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT);
     if (screen == 0) {
         glColor3f(1, 1, 1);
-        drawLargeText("2D Car Racing Game", 120, 300, GLUT_BITMAP_TIMES_ROMAN_24, 5.0);
+        drawLargeText("FAST LANE FURY", 120, 300, GLUT_BITMAP_TIMES_ROMAN_24, 5.0);
         drawText("Press any key to continue", 120, 150);
         glutSwapBuffers();
     } else if (screen == 1) {
@@ -521,7 +523,7 @@ void display() {
 
             updateHighScore();
 
-            if (highScore >= score) {
+            if (highScore < score) {
                 glColor4f(0.0, 0.0, 0.0, 0.5);
                 glBegin(GL_POLYGON);
                 glVertex2f(100, 50);
@@ -560,6 +562,8 @@ void display() {
                 drawText("Your Score:", 200, 300);
                 sprintf(buffer, "%d", score);
                 drawLargeText(buffer, 280, 300, GLUT_BITMAP_TIMES_ROMAN_24, 3.0);
+
+                gameRunning = false;
             }
             glutSwapBuffers();
         } else {
@@ -573,7 +577,7 @@ int main(int argc, char **argv) {
     glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE);
     glutInitWindowPosition(100, 100);
     glutInitWindowSize(800, 500);
-    glutCreateWindow("2D Car Racing game");
+    glutCreateWindow("FASTLANEFURY");
     ovpos();
     init();
     glutDisplayFunc(display);
