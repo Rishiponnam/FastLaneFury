@@ -7,8 +7,8 @@
 bool updateGame = true;
 
 int i, q;
-int score = 0;
-int highScore = 0;
+unsigned long long score = 0;
+unsigned long long highScore = 0;
 int screen = 0;
 int speed = 10;
 int originalTimerInterval = 20;
@@ -119,12 +119,13 @@ void ovpos() {
     }
 }
 
-int calculateAdjustedInterval(int score) {
+int calculateAdjustedInterval(unsigned long long score) {
     // For every 200 rise in score, decrease the interval by 1 millisecond
-    return originalTimerInterval - (score / 200);
+    int adjustedInterval = originalTimerInterval - (score / 200);
+    return (adjustedInterval < 0) ? 0 : adjustedInterval;
 }
 
-void updateSpeed(int score) {
+void updateSpeed(unsigned long long score) {
     // For every 200 rise in score, increase the speed by 10
     speed = 10 + (score / 200) * speedIncrease;
 }
@@ -412,7 +413,7 @@ void timer(int) {
     static int accumulatedPauseTime = 0;
 
     if(gameStarted && !pauseScreen){
-        if (updateGame && !gameOver) {
+        if (updateGame && !gameOver && !collide) {
         const int UpDown = 5;
         const int Side = 20;
 
@@ -486,12 +487,12 @@ void display() {
 
         glColor3f(1, 1, 1);
         drawText("Score:", 360, 405);
-        sprintf(buffer, "%d", score);
+        sprintf(buffer, "%llu", score);
         drawTextNum(buffer, 6, 420, 405);
 
         glColor3f(1, 1, 1);
         drawText("High Score:", 360, 445);
-        sprintf(buffer, "%d", highScore);
+        sprintf(buffer, "%llu", highScore);
         drawLargeText(buffer, 440, 445, GLUT_BITMAP_TIMES_ROMAN_24, 3.0);
 
         if (pauseScreen == true) {
@@ -512,7 +513,7 @@ void display() {
 
             glColor3f(1, 1, 1);
             drawText("Your Score:", 200, 350);
-            sprintf(buffer, "%d", score);
+            sprintf(buffer, "%llu", score);
             drawLargeText(buffer, 280, 350, GLUT_BITMAP_TIMES_ROMAN_24, 3.0);
 
             glutSwapBuffers();
@@ -523,7 +524,7 @@ void display() {
 
             updateHighScore();
 
-            if (highScore < score) {
+            if (highScore <= score) {
                 glColor4f(0.0, 0.0, 0.0, 0.5);
                 glBegin(GL_POLYGON);
                 glVertex2f(100, 50);
@@ -533,13 +534,14 @@ void display() {
                 glEnd();
 
                 glColor3f(1, 1, 1);
-                drawLargeText("High Score!!!", 200, 400, GLUT_BITMAP_TIMES_ROMAN_24, 5.0);
+                drawLargeText("Congratulations", 200, 400, GLUT_BITMAP_TIMES_ROMAN_24, 5.0);
+                drawText("High Score!!!", 210, 350);
                 drawText("Press R to Restart", 180, 220);
                 drawText("Press 'ESC' to quit the game", 170, 200);
 
                 glColor3f(1, 1, 1);
                 drawText("Your Score:", 200, 300);
-                sprintf(buffer, "%d", score);
+                sprintf(buffer, "%llu", score);
                 drawLargeText(buffer, 280, 300, GLUT_BITMAP_TIMES_ROMAN_24, 3.0);
             
                 gameRunning = false;
@@ -560,7 +562,7 @@ void display() {
 
                 glColor3f(1, 1, 1);
                 drawText("Your Score:", 200, 300);
-                sprintf(buffer, "%d", score);
+                sprintf(buffer, "%llu", score);
                 drawLargeText(buffer, 280, 300, GLUT_BITMAP_TIMES_ROMAN_24, 3.0);
 
                 gameRunning = false;
