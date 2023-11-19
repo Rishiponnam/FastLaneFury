@@ -38,7 +38,11 @@ Welcome to the FastLaneFury! Experience the thrill of high-speed racing, dodge o
 ## Screenshots
 
 ![Screen2](.vscode/image.png)
+
+
 ![Game](.vscode/image-1.png)
+
+
 ![Pause](.vscode/image-2.png)
 
 ## Installation
@@ -46,11 +50,16 @@ Welcome to the FastLaneFury! Experience the thrill of high-speed racing, dodge o
 1. Clone the repository:
 
 git clone https://github.com/Rishiponnam/FastLaneFury.git
+
 cd FASTLANEFURY
 
 2. How to run:
 
-After cd FASTLANEFURY,just run the file using command g++ -o car_racing car_racing.cpp -lfreeglut -lglu32 -lopengl32 -lglew32
+After cd FASTLANEFURY,just run the file using command 
+
+g++ -o car_racing car_racing.cpp -lfreeglut -lglu32 -lopengl32 -lglew32
+
+
 And execute the file using ./car_racing.exe
 
 ## Dependencies
