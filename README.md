@@ -39,6 +39,11 @@ Welcome to the FastLaneFury! Experience the thrill of high-speed racing, dodge o
 
 
 
+
+
+
+
+
 ## Installation
 
 1. Clone the repository:
