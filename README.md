@@ -37,12 +37,9 @@ Welcome to the FastLaneFury! Experience the thrill of high-speed racing, dodge o
 
 ## Screenshots
 
-
-
-
-
-
-
+![Screen2](.vscode/image.png)
+![Game](.vscode/image-1.png)
+![Pause](.vscode/image-2.png)
 
 ## Installation
 
