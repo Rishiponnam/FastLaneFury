@@ -188,7 +188,7 @@ void drawDivider() {
 
 void drawVehicle() {
     glLoadIdentity();
-    glPointSize(11.0);
+    glPointSize(8.0);
     glBegin(GL_POINTS);
     glColor3f(0, 0, 0);
     glVertex2f(vehicleX - 25, vehicleY + 16);
@@ -226,7 +226,7 @@ void drawVehicle() {
 void drawOVehicle() {
     for (i = 0; i < 4; i++) {
         glLoadIdentity();
-        glPointSize(11.0);
+        glPointSize(8.0);
         glBegin(GL_POINTS);
         glColor3f(0, 0, 0);
         glVertex2f(ovehicleX[i] - 25, ovehicleY[i] + 16);
